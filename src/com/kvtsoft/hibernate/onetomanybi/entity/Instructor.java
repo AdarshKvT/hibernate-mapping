@@ -1,4 +1,4 @@
-package com.kvtsoft.hibernate.onetomany.entity;
+package com.kvtsoft.hibernate.onetomanybi.entity;
 
 import java.util.ArrayList;
 import java.util.List;

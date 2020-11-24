@@ -1,12 +1,12 @@
-package com.kvtsoft.hibernate.onetomany.demo;
+package com.kvtsoft.hibernate.onetomanybi.demo;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.kvtsoft.hibernate.onetomany.entity.Course;
-import com.kvtsoft.hibernate.onetomany.entity.Instructor;
-import com.kvtsoft.hibernate.onetomany.entity.InstructorDetail;
+import com.kvtsoft.hibernate.onetomanybi.entity.Course;
+import com.kvtsoft.hibernate.onetomanybi.entity.Instructor;
+import com.kvtsoft.hibernate.onetomanybi.entity.InstructorDetail;
 
 public class CreateCourses {
 

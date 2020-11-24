@@ -1,62 +1,58 @@
-package com.kvtsoft.hibernate.onetomany.demo;
+package com.kvtsoft.hibernate.onetomanybi.demo;
+
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.kvtsoft.hibernate.onetomany.entity.Course;
-import com.kvtsoft.hibernate.onetomany.entity.Instructor;
-import com.kvtsoft.hibernate.onetomany.entity.InstructorDetail;
+import com.kvtsoft.hibernate.onetomanybi.entity.Course;
+import com.kvtsoft.hibernate.onetomanybi.entity.Instructor;
+import com.kvtsoft.hibernate.onetomanybi.entity.InstructorDetail;
 
-public class DeleteCourse {
+public class RetrieveCourses {
 
 	public static void main(String[] args) {
-
-		// create session factory
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Instructor.class)
 				.addAnnotatedClass(InstructorDetail.class).addAnnotatedClass(Course.class).buildSessionFactory();
 
-		// create session
+		// create a session
 		Session session = factory.getCurrentSession();
 
-		int id = 2;
+		int id = 1;
 
 		try {
 
 			// start transaction
 			session.beginTransaction();
 
-			// retrieve the object which need to be deleted from db
-			Course course = session.get(Course.class, id);
+			Instructor instructor = session.get(Instructor.class, id);
 
-			if (course != null) {
-				System.out.println("\nDeleting course only... ");
+			if (instructor != null) {
 
-				// remove the associated object reference
-				// break bi-directional link
-				if (course != null) {
-					session.delete(course);
-					System.out.println("\nObject has been deleted successfully");
-				}
+				System.out.println("\nRetrieving courses attached to the instructor");
+				// retrieve courses of instructor
+				List<Course> course = instructor.getCourses();
 
-				// commit transaction
-				session.getTransaction().commit();
+				System.out.println("\nInstructor courses: " + course);
 
 			} else {
 				System.out.println("\nInstructor detail with id: " + id + " not found");
+
 			}
 
+			session.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println("\nAn error occured. Cannot delete the object !!");
 			e.printStackTrace();
 
 		} finally {
+
 			// handle leak connection issue
 			System.out.println("\nClosing the factory and session connection");
 			session.close();
 			factory.close();
 		}
-
 	}
 
 }

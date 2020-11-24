@@ -1,4 +1,4 @@
-package com.kvtsoft.hibernate.onetomany.entity;
+package com.kvtsoft.hibernate.eagervslazy.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
