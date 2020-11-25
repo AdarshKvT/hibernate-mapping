@@ -1,54 +1,52 @@
-package com.kvtsoft.hibernate.onetomanyuni.demo;
+package com.kvtsoft.hibernate.manytomany.demo;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.kvtsoft.hibernate.onetomanyuni.entity.Course;
-import com.kvtsoft.hibernate.onetomanyuni.entity.Instructor;
-import com.kvtsoft.hibernate.onetomanyuni.entity.InstructorDetail;
-import com.kvtsoft.hibernate.onetomanyuni.entity.Review;
+import com.kvtsoft.hibernate.manytomany.entity.Course;
+import com.kvtsoft.hibernate.manytomany.entity.Instructor;
+import com.kvtsoft.hibernate.manytomany.entity.InstructorDetail;
+import com.kvtsoft.hibernate.manytomany.entity.Review;
+import com.kvtsoft.hibernate.manytomany.entity.Student;
 
-public class RetrieveCoursesAndReviewsDemo {
+public class DeleteStudentDemo {
 
 	public static void main(String[] args) {
 
 		// create session factory
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Instructor.class)
 				.addAnnotatedClass(InstructorDetail.class).addAnnotatedClass(Course.class)
-				.addAnnotatedClass(Review.class).buildSessionFactory();
+				.addAnnotatedClass(Review.class).addAnnotatedClass(Student.class).buildSessionFactory();
 
 		// create session
 		Session session = factory.getCurrentSession();
 
-		int id = 10;
-
+		int id = 5;
 		try {
 
 			// start a transaction
 			session.beginTransaction();
 
-			// get the course
+			// get the student "sasuke" from database
 			Course course = session.get(Course.class, id);
 
 			if (course != null) {
 
-				// print the course
-				System.out.println("course: " + course);
-				// print the course review
-				System.err.println("reviews: " + course.getReview());
+				System.out.println("\nDeleting the course...");
+				session.delete(course);
+
 				// commit the transaction
+				session.getTransaction().commit();
+
+				System.out.println("\nObject has been deleted successfully");
 
 			} else {
-				System.out.println("\nCourse id: " + id + " not found");
+				System.out.println("\nObject id: " + id + " not found!!");
 			}
 
-			session.getTransaction().commit();
-
-			System.out.println("\nObject has been retrieve successfully");
-
 		} catch (Exception e) {
-			System.out.println("\nAn error occured. Cannot save the object !!");
+			System.out.println("\nAn error occured.");
 			e.printStackTrace();
 
 		} finally {

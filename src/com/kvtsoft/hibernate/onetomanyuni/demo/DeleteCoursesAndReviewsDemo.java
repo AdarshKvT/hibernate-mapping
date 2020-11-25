@@ -31,8 +31,10 @@ public class DeleteCoursesAndReviewsDemo {
 			// get the course
 			Course course = session.get(Course.class, id);
 
+			System.out.println("\ncourse: " + course);
 			if (course != null) {
-				System.out.println("Deleting the course ... ");
+
+				System.out.println("\nDeleting the course ... ");
 				// print the course
 				System.out.println("course: " + course);
 				// print the course review
